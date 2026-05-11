@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
-    <meta name="description" content="Radar multicategoría de tendencias y ofertas más vendidas de Mercado Libre Argentina.">
-    <title>Radar Ofertas ML | Tendencias Multicategoría</title>
+    <meta name="description" content="Radar de tendencias y ofertas más vendidas de Mercado Libre Argentina.">
+    <title>Radar Mercado Libre Argentina | Ofertas y Tendencias</title>
     <style>
         :root {
             --bg: #000000;
-            --panel: rgba(10, 14, 22, 0.72);
+            --panel: rgba(255, 255, 255, 0.075);
             --panel-strong: rgba(255, 255, 255, 0.12);
-            --stroke: rgba(255, 255, 255, 0.15);
+            --stroke: rgba(255, 255, 255, 0.16);
             --text: #f7fbff;
-            --muted: #9ba8bd;
+            --muted: #a7b1c2;
             --cyan: #00e5ff;
             --orange: #ff8a00;
             --green: #00ff9d;
-            --pink: #ff3df2;
             --shadow: 0 18px 45px rgba(0, 229, 255, 0.12);
         }
 
@@ -35,94 +34,120 @@
             font-family: Arial, Helvetica, sans-serif;
             background:
                 radial-gradient(circle at 18% 0%, rgba(0, 229, 255, 0.16), transparent 30%),
-                radial-gradient(circle at 90% 10%, rgba(255, 138, 0, 0.13), transparent 28%),
+                radial-gradient(circle at 90% 12%, rgba(255, 138, 0, 0.13), transparent 28%),
                 linear-gradient(180deg, #000000 0%, #02040a 55%, #000000 100%);
         }
 
-        .app-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.72);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.11);
-            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.55);
-        }
-
-        .header-inner {
+        .container {
             width: min(1180px, 100%);
             margin: 0 auto;
-            padding: 10px 12px 11px;
+            padding: 22px 14px 38px;
         }
 
-        .brand-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 8px;
+        .hero {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            padding: 18px 0 16px;
+            backdrop-filter: blur(20px);
+            background: linear-gradient(180deg, rgba(0,0,0,0.92), rgba(0,0,0,0.68));
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
-        .brand-block { min-width: 0; }
+        .hero-panel {
+            border: 1px solid var(--stroke);
+            background: var(--panel);
+            box-shadow: var(--shadow);
+            border-radius: 26px;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-panel::before {
+            content: "";
+            position: absolute;
+            inset: -80px auto auto -80px;
+            width: 180px;
+            height: 180px;
+            background: rgba(0,229,255,0.20);
+            filter: blur(48px);
+            border-radius: 50%;
+        }
 
         .eyebrow {
-            display: block;
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
             color: var(--orange);
-            font-weight: 900;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.10em;
-            font-size: 0.64rem;
-            margin-bottom: 2px;
+            letter-spacing: 0.11em;
+            font-size: 0.74rem;
+            position: relative;
         }
 
         h1 {
+            margin: 10px 0 8px;
+            font-size: clamp(2rem, 8vw, 4.3rem);
+            line-height: 0.95;
+            letter-spacing: -0.07em;
+        }
+
+        .subtitle {
             margin: 0;
-            font-size: clamp(1.06rem, 5vw, 1.55rem);
-            line-height: 1.05;
-            letter-spacing: -0.045em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .mini-stat {
-            flex: 0 0 auto;
-            border: 1px solid rgba(0, 229, 255, 0.32);
-            background: rgba(0, 229, 255, 0.08);
-            color: var(--cyan);
-            border-radius: 14px;
-            padding: 7px 9px;
-            text-align: right;
-            font-size: 0.72rem;
-            font-weight: 850;
-            line-height: 1.15;
-        }
-
-        .mini-stat span {
-            display: block;
             color: var(--muted);
-            font-size: 0.62rem;
-            font-weight: 700;
+            line-height: 1.55;
+            font-size: 0.98rem;
+            max-width: 850px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .stat {
+            border: 1px solid var(--stroke);
+            background: rgba(255,255,255,0.055);
+            border-radius: 18px;
+            padding: 12px;
+        }
+
+        .stat strong {
+            display: block;
+            color: var(--cyan);
+            font-size: 1.35rem;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.78rem;
+        }
+
+        .search-zone {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
         }
 
         .search-box {
             position: relative;
-            width: 100%;
+            flex: 1;
         }
 
         #searchInput {
             width: 100%;
             appearance: none;
-            border: 1px solid rgba(0, 229, 255, 0.30);
+            border: 1px solid rgba(0,229,255,0.32);
             outline: none;
-            border-radius: 16px;
+            border-radius: 18px;
             background: rgba(0, 0, 0, 0.58);
             color: var(--text);
-            padding: 12px 44px 12px 13px;
-            font-size: 0.95rem;
+            padding: 15px 46px 15px 15px;
+            font-size: 1rem;
             box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
         }
 
@@ -133,72 +158,25 @@
 
         #clearSearch {
             position: absolute;
-            right: 7px;
+            right: 8px;
             top: 50%;
             transform: translateY(-50%);
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             border: 0;
             border-radius: 12px;
-            background: rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.11);
             color: #fff;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             cursor: pointer;
             display: none;
         }
-
-        .filter-row {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding: 9px 1px 1px;
-            scrollbar-width: none;
-        }
-
-        .filter-row::-webkit-scrollbar { display: none; }
-
-        .filter-btn {
-            flex: 0 0 auto;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 999px;
-            color: var(--text);
-            background: rgba(255,255,255,0.07);
-            padding: 9px 12px;
-            font-size: 0.80rem;
-            font-weight: 900;
-            cursor: pointer;
-        }
-
-        .filter-btn.active {
-            color: #001013;
-            border-color: transparent;
-            background: linear-gradient(135deg, var(--cyan), var(--green));
-            box-shadow: 0 8px 20px rgba(0,229,255,0.22);
-        }
-
-        .page {
-            width: min(1180px, 100%);
-            margin: 0 auto;
-            padding: 188px 14px 38px;
-        }
-
-        .summary-panel {
-            border: 1px solid var(--stroke);
-            background: rgba(255,255,255,0.055);
-            border-radius: 22px;
-            padding: 14px;
-            margin-bottom: 15px;
-            color: var(--muted);
-            line-height: 1.45;
-            box-shadow: var(--shadow);
-        }
-
-        .summary-panel strong { color: var(--cyan); }
 
         .grid {
             display: grid;
             grid-template-columns: repeat(1, minmax(0, 1fr));
             gap: 14px;
+            margin-top: 22px;
         }
 
         .product-card {
@@ -232,7 +210,7 @@
             border-radius: 999px;
             padding: 5px 9px;
             font-size: 0.75rem;
-            font-weight: 950;
+            font-weight: 900;
             color: #001013;
             background: linear-gradient(135deg, var(--cyan), var(--green));
             box-shadow: 0 8px 22px rgba(0,229,255,0.24);
@@ -244,7 +222,7 @@
             display: grid;
             place-items: center;
             border-radius: 18px;
-            background: rgba(255,255,255,0.93);
+            background: rgba(255,255,255,0.92);
             overflow: hidden;
             position: relative;
             z-index: 1;
@@ -266,37 +244,21 @@
             z-index: 1;
         }
 
-        .card-topline {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .trend-label, .category-pill {
-            width: fit-content;
-            border-radius: 999px;
-            padding: 5px 9px;
-            font-size: 0.70rem;
-            font-weight: 900;
-        }
-
         .trend-label {
+            width: fit-content;
             border: 1px solid rgba(255,138,0,0.38);
+            border-radius: 999px;
             color: var(--orange);
             background: rgba(255,138,0,0.08);
-        }
-
-        .category-pill {
-            border: 1px solid rgba(0,229,255,0.32);
-            color: var(--cyan);
-            background: rgba(0,229,255,0.08);
+            padding: 5px 9px;
+            font-size: 0.72rem;
+            font-weight: 800;
         }
 
         .product-card h2 {
             margin: 0;
-            font-size: 0.97rem;
-            line-height: 1.31;
+            font-size: 0.98rem;
+            line-height: 1.32;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
@@ -306,7 +268,7 @@
         .price {
             margin: auto 0 0;
             color: var(--cyan);
-            font-size: 1.22rem;
+            font-size: 1.23rem;
             font-weight: 950;
             letter-spacing: -0.03em;
         }
@@ -329,7 +291,7 @@
             background: rgba(255,138,0,0.08);
             border-radius: 22px;
             padding: 18px;
-            margin-bottom: 15px;
+            margin-top: 18px;
             color: var(--text);
         }
 
@@ -345,14 +307,10 @@
             padding: 28px 10px 8px;
         }
 
-        @media (max-width: 380px) {
-            .page { padding-top: 205px; }
-            .filter-btn { padding: 8px 10px; }
-        }
-
         @media (min-width: 700px) {
-            .header-inner { padding: 12px 22px 12px; }
-            .page { padding: 178px 22px 42px; }
+            .container { padding-inline: 22px; }
+            .hero-panel { padding: 28px; }
+            .stats { grid-template-columns: repeat(3, 1fr); }
             .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
             .product-card { grid-template-columns: 150px 1fr; min-height: 208px; }
             .image-wrap { width: 150px; min-height: 184px; }
@@ -360,8 +318,6 @@
         }
 
         @media (min-width: 1050px) {
-            .brand-row { margin-bottom: 9px; }
-            .page { padding-top: 172px; }
             .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
             .product-card { grid-template-columns: 1fr; }
             .image-wrap { width: 100%; min-height: 210px; }
@@ -369,44 +325,368 @@
     </style>
 </head>
 <body>
-    <header class="app-header">
-        <div class="header-inner">
-            <div class="brand-row">
-                <div class="brand-block">
-                    <span class="eyebrow">Radar multicategoría</span>
-                    <h1>Ofertas ML en tendencia</h1>
+    <header class="hero">
+        <div class="container">
+            <section class="hero-panel">
+                <span class="eyebrow">Radar de tendencias</span>
+                <h1>Ofertas que se están moviendo ahora</h1>
+                <p class="subtitle">Selección automática de productos destacados de Mercado Libre Argentina. Usá el buscador para filtrar en tiempo real por nombre, precio o ranking.</p>
+                <div class="stats">
+                    <div class="stat"><strong>24</strong><span>productos detectados</span></div>
+                    <div class="stat"><strong>AMOLED</strong><span>diseño oscuro profesional</span></div>
+                    <div class="stat"><strong>11/05/2026 18:18</strong><span>última actualización</span></div>
                 </div>
-                <div class="mini-stat"><strong></strong><span>productos</span></div>
-            </div>
-            <div class="search-box">
-                <input id="searchInput" type="search" placeholder="Buscar producto, marca o precio..." autocomplete="off">
-                <button id="clearSearch" type="button" aria-label="Limpiar búsqueda">×</button>
-            </div>
-            <nav class="filter-row" aria-label="Filtros de categoría">
-                <button class="filter-btn active" type="button" data-filter="todos">Todos</button>
-<button class="filter-btn" type="button" data-filter="tecno">Tecno</button>
-<button class="filter-btn" type="button" data-filter="hogar">Hogar</button>
-<button class="filter-btn" type="button" data-filter="herramientas">Herramientas</button>
-<button class="filter-btn" type="button" data-filter="belleza">Belleza</button>
-            </nav>
+                <div class="search-zone">
+                    <div class="search-box">
+                        <input id="searchInput" type="search" placeholder="Buscar producto, marca o precio..." autocomplete="off">
+                        <button id="clearSearch" type="button" aria-label="Limpiar búsqueda">×</button>
+                    </div>
+                </div>
+            </section>
         </div>
     </header>
 
-    <main class="page">
-        <section class="summary-panel">
-            <strong>Actualizado:</strong> 11/05/2026 18:16 · <strong>Categorías:</strong> Tecno: 0 · Hogar: 0 · Herramientas: 0 · Belleza: 0
-        </section>
-
+    <main class="container">
         <section id="noResults" class="no-results">
             <h2>No encontramos ese producto, pero mirá estas tendencias...</h2>
-            <p>Probá con otra palabra clave, cambiá de categoría o tocá “Todos” para ver el radar completo.</p>
+            <p>Probá con otra palabra clave o limpiá el buscador para volver a ver todas las ofertas.</p>
         </section>
 
         <section id="productsGrid" class="grid">
             
-        <article class="empty-state always-visible">
-            <h2>No se pudieron cargar productos en este momento</h2>
-            <p>Mercado Libre puede mostrar una verificación temporal de tráfico. Probá ejecutar el radar nuevamente más tarde.</p>
+        <article class="product-card" data-search="xiaomi redmi buds 6 play rosa $ 24.499 más vendido #1">
+            <div class="rank-badge">#1</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/xiaomi-redmi-buds-6-play-rosa/p/MLA47259580?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_714087-MLA96151231035_102025-P.webp" alt="Xiaomi Redmi Buds 6 Play Rosa" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #1</span>
+                <h2>Xiaomi Redmi Buds 6 Play Rosa</h2>
+                <p class="price">$ 24.499</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/xiaomi-redmi-buds-6-play-rosa/p/MLA47259580?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="auriculares xiaomi redmi buds 6 active bluetooth 5.4 rosa $ 36.238 más vendido #2">
+            <div class="rank-badge">#2</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/auriculares-xiaomi-redmi-buds-6-active-bluetooth-54-rosa/p/MLA39388818?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_679961-MLA96111340457_102025-P.webp" alt="Auriculares Xiaomi Redmi Buds 6 Active Bluetooth 5.4 Rosa" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #2</span>
+                <h2>Auriculares Xiaomi Redmi Buds 6 Active Bluetooth 5.4 Rosa</h2>
+                <p class="price">$ 36.238</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/auriculares-xiaomi-redmi-buds-6-active-bluetooth-54-rosa/p/MLA39388818?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="power bank cargador portatil 20000mah carga rapida mixio $ 49.999 más vendido #3">
+            <div class="rank-badge">#3</div>
+            <a class="image-wrap" href="https://articulo.mercadolibre.com.ar/MLA-1399965089-power-bank-cargador-portatil-20000mah-carga-rapida-mixio-_JM?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_991674-MLA98648255379_112025-P.webp" alt="Power Bank Cargador Portatil 20000mah Carga Rapida Mixio" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #3</span>
+                <h2>Power Bank Cargador Portatil 20000mah Carga Rapida Mixio</h2>
+                <p class="price">$ 49.999</p>
+                <a class="buy-button" href="https://articulo.mercadolibre.com.ar/MLA-1399965089-power-bank-cargador-portatil-20000mah-carga-rapida-mixio-_JM?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="extensor de rango tp-link para pared tl-wa850re v7 inalámbrico n 300mbps $ 32.839 más vendido #4">
+            <div class="rank-badge">#4</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/extensor-de-rango-tp-link-para-pared-tl-wa850re-v7-inalambrico-n-300mbps/p/MLA18382231?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_811433-MLA95703464808_102025-P.webp" alt="Extensor de rango TP-Link para pared TL-WA850RE V7 Inalámbrico N 300Mbps" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #4</span>
+                <h2>Extensor de rango TP-Link para pared TL-WA850RE V7 Inalámbrico N 300Mbps</h2>
+                <p class="price">$ 32.839</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/extensor-de-rango-tp-link-para-pared-tl-wa850re-v7-inalambrico-n-300mbps/p/MLA18382231?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="filamento pla+ 3nmax rojo 1.75mm 1kg para impresora 3d $ 21.000 más vendido #5">
+            <div class="rank-badge">#5</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/filamento-pla-3nmax-rojo-175mm-1kg-para-impresora-3d/p/MLA44880306?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_675800-MLA105988074331_012026-P.webp" alt="Filamento PLA+ 3nMax Rojo 1.75mm 1kg para Impresora 3D" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #5</span>
+                <h2>Filamento PLA+ 3nMax Rojo 1.75mm 1kg para Impresora 3D</h2>
+                <p class="price">$ 21.000</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/filamento-pla-3nmax-rojo-175mm-1kg-para-impresora-3d/p/MLA44880306?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="control inalambrico sony dualsense ps5 color starlight blue $ 170.999 más vendido #6">
+            <div class="rank-badge">#6</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/control-inalambrico-sony-dualsense-ps5-color-starlight-blue/p/MLA18910381?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_754972-MLA96100942203_102025-P.webp" alt="Control Inalambrico Sony DualSense PS5 Color Starlight Blue" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #6</span>
+                <h2>Control Inalambrico Sony DualSense PS5 Color Starlight Blue</h2>
+                <p class="price">$ 170.999</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/control-inalambrico-sony-dualsense-ps5-color-starlight-blue/p/MLA18910381?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="papel fotográfico glossy a4 230g 100 hojas art-jet para impresora inkjet $ 12.610 más vendido #7">
+            <div class="rank-badge">#7</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/papel-fotografico-glossy-a4-230g-100-hojas-art-jet-para-impresora-inkjet/p/MLA24086325?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_763710-MLA99477563048_112025-P.webp" alt="Papel Fotográfico Glossy A4 230g 100 Hojas Art-Jet para Impresora Inkjet" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #7</span>
+                <h2>Papel Fotográfico Glossy A4 230g 100 Hojas Art-Jet para Impresora Inkjet</h2>
+                <p class="price">$ 12.610</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/papel-fotografico-glossy-a4-230g-100-hojas-art-jet-para-impresora-inkjet/p/MLA24086325?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="kit de internet vía satélite starlink mini x $ 299.000 más vendido #8">
+            <div class="rank-badge">#8</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/kit-de-internet-via-satelite-starlink-mini-x/p/MLA65276331?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_807657-MLA106594620491_022026-P.webp" alt="Kit De Internet Vía Satélite Starlink Mini X" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #8</span>
+                <h2>Kit De Internet Vía Satélite Starlink Mini X</h2>
+                <p class="price">$ 299.000</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/kit-de-internet-via-satelite-starlink-mini-x/p/MLA65276331?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="pack x10 lampara luz led inteligente rgb 9w smart multicolor luz rgb multicolor $ 90.593 más vendido #9">
+            <div class="rank-badge">#9</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/pack-x10-lampara-luz-led-inteligente-rgb-9w-smart-multicolor-luz-rgb-multicolor/p/MLA39446666?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_999875-MLA99534203980_122025-P.webp" alt="Pack X10 Lampara Luz Led Inteligente Rgb 9w Smart Multicolor Luz Rgb Multicolor" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #9</span>
+                <h2>Pack X10 Lampara Luz Led Inteligente Rgb 9w Smart Multicolor Luz Rgb Multicolor</h2>
+                <p class="price">$ 90.593</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/pack-x10-lampara-luz-led-inteligente-rgb-9w-smart-multicolor-luz-rgb-multicolor/p/MLA39446666?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="balanza de cocina digital electrónica capacidad máxima 10 kg color blanco $ 8.999 más vendido #10">
+            <div class="rank-badge">#10</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/balanza-de-cocina-digital-electronica-capacidad-maxima-10-kg-color-blanco/p/MLA21239613?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_950579-MLA100126805993_122025-P.webp" alt="Balanza de cocina digital electrónica capacidad máxima 10 kg color blanco" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #10</span>
+                <h2>Balanza de cocina digital electrónica capacidad máxima 10 kg color blanco</h2>
+                <p class="price">$ 8.999</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/balanza-de-cocina-digital-electronica-capacidad-maxima-10-kg-color-blanco/p/MLA21239613?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="secador de pelo ultracomb tourmaline ion pro sc-4606 negro $ 59.999 más vendido #11">
+            <div class="rank-badge">#11</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/secador-de-pelo-ultracomb-tourmaline-ion-pro-sc-4606-negro/p/MLA26605450?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_860152-MLA99856440279_112025-P.webp" alt="Secador De Pelo Ultracomb Tourmaline Ion Pro Sc-4606 Negro" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #11</span>
+                <h2>Secador De Pelo Ultracomb Tourmaline Ion Pro Sc-4606 Negro</h2>
+                <p class="price">$ 59.999</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/secador-de-pelo-ultracomb-tourmaline-ion-pro-sc-4606-negro/p/MLA26605450?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="yogurtera yelmo yg-1717 yogur griego natural 20w 1.5 litros 2 contenedores $ 25.990 más vendido #12">
+            <div class="rank-badge">#12</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/yogurtera-yelmo-yg-1717-yogur-griego-natural-20w-15-litros-2-contenedores/p/MLA42522422?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_656138-MLA110554233185_042026-P.webp" alt="Yogurtera Yelmo YG-1717 Yogur Griego Natural 20W 1.5 Litros 2 contenedores" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #12</span>
+                <h2>Yogurtera Yelmo YG-1717 Yogur Griego Natural 20W 1.5 Litros 2 contenedores</h2>
+                <p class="price">$ 25.990</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/yogurtera-yelmo-yg-1717-yogur-griego-natural-20w-15-litros-2-contenedores/p/MLA42522422?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="zapatillas adidas running duramo sl 2 mujer ih8225 $ 119.999 más vendido #13">
+            <div class="rank-badge">#13</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/zapatillas-adidas-running-duramo-sl-2-mujer-ih8225/p/MLA47305687?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_764072-MLA82927079998_032025-P.webp" alt="Zapatillas adidas Running Duramo Sl 2 Mujer Ih8225" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #13</span>
+                <h2>Zapatillas adidas Running Duramo Sl 2 Mujer Ih8225</h2>
+                <p class="price">$ 119.999</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/zapatillas-adidas-running-duramo-sl-2-mujer-ih8225/p/MLA47305687?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="zapatillas adidas running duramo sl 2 hombre ih8218 $ 119.999 más vendido #14">
+            <div class="rank-badge">#14</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/zapatillas-adidas-running-duramo-sl-2-hombre-ih8218/p/MLA47365764?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_605010-MLA99992359357_112025-P.webp" alt="Zapatillas adidas Running Duramo SL 2 Hombre IH8218" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #14</span>
+                <h2>Zapatillas adidas Running Duramo SL 2 Hombre IH8218</h2>
+                <p class="price">$ 119.999</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/zapatillas-adidas-running-duramo-sl-2-hombre-ih8218/p/MLA47365764?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="adidas astrastar casual hombre jr5565 $ 109.999 más vendido #15">
+            <div class="rank-badge">#15</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/adidas-astrastar-casual-hombre-jr5565/p/MLA66640842?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_953417-MLA108707651789_032026-P.webp" alt="adidas Astrastar Casual Hombre Jr5565" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #15</span>
+                <h2>adidas Astrastar Casual Hombre Jr5565</h2>
+                <p class="price">$ 109.999</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/adidas-astrastar-casual-hombre-jr5565/p/MLA66640842?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="zapatillas de running galaxy 7 jq2623 adidas $ 109.999 más vendido #16">
+            <div class="rank-badge">#16</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/zapatillas-de-running-galaxy-7-jq2623-adidas/p/MLA65841125?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_824570-MLA106789034452_022026-P.webp" alt="Zapatillas De Running Galaxy 7 Jq2623 adidas" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #16</span>
+                <h2>Zapatillas De Running Galaxy 7 Jq2623 adidas</h2>
+                <p class="price">$ 109.999</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/zapatillas-de-running-galaxy-7-jq2623-adidas/p/MLA65841125?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="auriculares bluetooth xiaomi redmi buds 6 play color blanco $ 29.999 más vendido #17">
+            <div class="rank-badge">#17</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/auriculares-bluetooth-xiaomi-redmi-buds-6-play-color-blanco/p/MLA41149389?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_782183-MLA95705710992_102025-P.webp" alt="Auriculares Bluetooth Xiaomi Redmi Buds 6 Play Color Blanco" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #17</span>
+                <h2>Auriculares Bluetooth Xiaomi Redmi Buds 6 Play Color Blanco</h2>
+                <p class="price">$ 29.999</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/auriculares-bluetooth-xiaomi-redmi-buds-6-play-color-blanco/p/MLA41149389?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="10 pilas aaa energizer max e92 alcalina $ 11.000 más vendido #18">
+            <div class="rank-badge">#18</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/10-pilas-aaa-energizer-max-e92-alcalina/p/MLA22380356?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_977584-MLA99446847018_112025-P.webp" alt="10 Pilas AAA Energizer MAX E92 Alcalina" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #18</span>
+                <h2>10 Pilas AAA Energizer MAX E92 Alcalina</h2>
+                <p class="price">$ 11.000</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/10-pilas-aaa-energizer-max-e92-alcalina/p/MLA22380356?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="tv stick wi-fi smart tv android hdmi tv box fire convertidor color negro tipo de control remoto estándar $ 27.989 más vendido #19">
+            <div class="rank-badge">#19</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/tv-stick-wi-fi-smart-tv-android-hdmi-tv-box-fire-convertidor-color-negro-tipo-de-control-remoto-estandar/p/MLA41918674?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_810140-MLA99989898035_112025-P.webp" alt="Tv Stick Wi-fi Smart Tv Android Hdmi Tv Box Fire Convertidor Color Negro Tipo de control remoto Estándar" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #19</span>
+                <h2>Tv Stick Wi-fi Smart Tv Android Hdmi Tv Box Fire Convertidor Color Negro Tipo de control remoto Estándar</h2>
+                <p class="price">$ 27.989</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/tv-stick-wi-fi-smart-tv-android-hdmi-tv-box-fire-convertidor-color-negro-tipo-de-control-remoto-estandar/p/MLA41918674?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="audífonos inalámbricos xiaomi redmi buds 6 active color azul claro luz azul claro $ 77.359 más vendido #20">
+            <div class="rank-badge">#20</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/audifonos-inalambricos-xiaomi-redmi-buds-6-active-color-azul-claro-luz-azul-claro/p/MLA40564881?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_850259-MLA99505977866_112025-P.webp" alt="Audífonos Inalámbricos Xiaomi Redmi Buds 6 Active Color Azul Claro Luz Azul Claro" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #20</span>
+                <h2>Audífonos Inalámbricos Xiaomi Redmi Buds 6 Active Color Azul Claro Luz Azul Claro</h2>
+                <p class="price">$ 77.359</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/audifonos-inalambricos-xiaomi-redmi-buds-6-active-color-azul-claro-luz-azul-claro/p/MLA40564881?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="casco para moto integral hawk integral rs1 negro brillante talle xl $ 65.806 más vendido #21">
+            <div class="rank-badge">#21</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/casco-para-moto-integral-hawk-integral-rs1-negro-brillante-talle-xl/p/MLA10292230?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_730828-MLA99910760927_112025-P.webp" alt="Casco para moto integral Hawk Integral RS1 negro brillante talle XL" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #21</span>
+                <h2>Casco para moto integral Hawk Integral RS1 negro brillante talle XL</h2>
+                <p class="price">$ 65.806</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/casco-para-moto-integral-hawk-integral-rs1-negro-brillante-talle-xl/p/MLA10292230?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="auto estereo fijo bluetooth radio fm usb sd auxiliar 60w x4 xbtqd $ 15.370 más vendido #22">
+            <div class="rank-badge">#22</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/auto-estereo-fijo-bluetooth-radio-fm-usb-sd-auxiliar-60w-x4-xbtqd/p/MLA39020630?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_745505-MLA99446924012_112025-P.webp" alt="Auto Estereo Fijo Bluetooth Radio Fm Usb Sd Auxiliar 60w X4 XBTQD" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #22</span>
+                <h2>Auto Estereo Fijo Bluetooth Radio Fm Usb Sd Auxiliar 60w X4 XBTQD</h2>
+                <p class="price">$ 15.370</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/auto-estereo-fijo-bluetooth-radio-fm-usb-sd-auxiliar-60w-x4-xbtqd/p/MLA39020630?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="casco para moto integral vertigo v32 dominium negro mate talle m $ 96.969 más vendido #23">
+            <div class="rank-badge">#23</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/casco-para-moto-integral-vertigo-v32-dominium-negro-mate-talle-m/p/MLA29722983?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_903611-MLA74012689399_012024-P.webp" alt="Casco para Moto Integral Vertigo V32 Dominium Negro Mate Talle M" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #23</span>
+                <h2>Casco para Moto Integral Vertigo V32 Dominium Negro Mate Talle M</h2>
+                <p class="price">$ 96.969</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/casco-para-moto-integral-vertigo-v32-dominium-negro-mate-talle-m/p/MLA29722983?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
+        </article>
+        
+
+        <article class="product-card" data-search="yelmo as-3240 aspiradora para auto recargable usb color gris $ 36.672 más vendido #24">
+            <div class="rank-badge">#24</div>
+            <a class="image-wrap" href="https://www.mercadolibre.com.ar/yelmo-as-3240-aspiradora-para-auto-recargable-usb-color-gris/p/MLA19719361?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">
+                <img src="https://http2.mlstatic.com/D_Q_NP_968814-MLA99502468296_112025-P.webp" alt="Yelmo As-3240 Aspiradora Para Auto Recargable Usb Color Gris" loading="lazy" onerror="this.src='https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo__large_plus.png'">
+            </a>
+            <div class="card-body">
+                <span class="trend-label">Más vendido #24</span>
+                <h2>Yelmo As-3240 Aspiradora Para Auto Recargable Usb Color Gris</h2>
+                <p class="price">$ 36.672</p>
+                <a class="buy-button" href="https://www.mercadolibre.com.ar/yelmo-as-3240-aspiradora-para-auto-recargable-usb-color-gris/p/MLA19719361?matt_tool=18937564&amp;matt_word=delaraelian" target="_blank" rel="nofollow sponsored noopener">Ver oferta</a>
+            </div>
         </article>
         
         </section>
@@ -420,9 +700,7 @@
         const searchInput = document.getElementById('searchInput');
         const clearSearch = document.getElementById('clearSearch');
         const cards = Array.from(document.querySelectorAll('.product-card'));
-        const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
         const noResults = document.getElementById('noResults');
-        let currentCategory = 'todos';
 
         function normalizeText(text) {
             return (text || '')
@@ -432,39 +710,26 @@
                 .trim();
         }
 
-        function applyFilters() {
+        function applySearch() {
             const query = normalizeText(searchInput.value);
             let visibleCount = 0;
             clearSearch.style.display = query ? 'block' : 'none';
 
             cards.forEach(card => {
                 const haystack = normalizeText(card.dataset.search || card.innerText);
-                const category = card.dataset.category || '';
-                const matchesText = !query || haystack.includes(query);
-                const matchesCategory = currentCategory === 'todos' || category === currentCategory;
-                const visible = matchesText && matchesCategory;
+                const visible = !query || haystack.includes(query);
                 card.classList.toggle('hidden', !visible);
                 if (visible) visibleCount += 1;
             });
 
-            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+            noResults.style.display = query && visibleCount === 0 ? 'block' : 'none';
         }
 
-        searchInput.addEventListener('input', applyFilters);
-
+        searchInput.addEventListener('input', applySearch);
         clearSearch.addEventListener('click', () => {
             searchInput.value = '';
-            applyFilters();
+            applySearch();
             searchInput.focus();
-        });
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                currentCategory = button.dataset.filter || 'todos';
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                applyFilters();
-            });
         });
     </script>
 </body>
